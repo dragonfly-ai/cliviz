@@ -2,13 +2,14 @@ package ai.dragonfly.viz.cli
 
 import ai.dragonfly.math.*
 import Random.*
+import ai.dragonfly.democrossy.Demonstration
 import vector.*
 import geometry.Line
 import visualization.ConsoleImage.{BLACK, GRAY, WHITE, colorBytes}
 
 import scala.collection.mutable
 
-object CLImgDemo {
+object CLImgDemo extends Demonstration {
 
   def randomSpiral(ci:CLImg, color:Int):CLImg = {
     val p:Vector2 = defaultRandom.next(Vector2(ci.width, ci.height))
@@ -35,19 +36,22 @@ object CLImgDemo {
     ci
   }
 
-  def demo(implicit sb:mutable.StringBuilder = new mutable.StringBuilder()):mutable.StringBuilder = {
+  def demo():Unit = {
     val ci: CLImg = new CLImg(200, 150)
     for (i <- 0 until 10) {
       randomSpiral(ci, defaultRandom.nextInt(CLImg.colorBytes.length))
-      sb.append(ci)
     }
 
+    ci.print()
 
-    sb.append(s"Layers\n")
+    println(s"Layers\n")
+    //println("What is going on here?")
+
     for (channel <- ci.channels) {
-      for (line <- channel) sb.append(line).append("\n")
+      for (line <- channel) {
+        println(line)
+      }
     }
-    sb
   }
 
   def name: String = "CLImg"

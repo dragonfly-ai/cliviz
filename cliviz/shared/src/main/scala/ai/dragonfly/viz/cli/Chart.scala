@@ -249,37 +249,36 @@ case class Chart( conf:ChartConfig ) {
     this
   }
 
-  def padLeft(s:String)(using sb:StringBuilder):StringBuilder = {
-    for (i <- 0 until leftPaddingWidth - s.length) sb.append(" ")
-    sb.append(s)
+  def padLeft(s:String):Unit = {
+    for (i <- 0 until leftPaddingWidth - s.length) print(" ")
+    print(s)
   }
 
-  def chartPadLeft(s:String)(using sb:StringBuilder):StringBuilder = {
-    for (i <- 0 until ((width/2) - s.length) / 2) sb.append("⠀")
-    sb.append(s)
+  def chartPadLeft(s:String):Unit = {
+    for (i <- 0 until ((width/2) - s.length) / 2) print("⠀")
+    print(s)
   }
 
-  def topBorder(using sb:StringBuilder):StringBuilder = {
-    sb.append(" ⢀")
-    for (i <- 0 until width/2) sb.append("⣀")
-    sb.append("⡀")
+  def topBorder():Unit = {
+    print(" ⢀")
+    for (i <- 0 until width/2) print("⣀")
+    print("⡀")
   }
 
-  def bottomBorder(using sb:StringBuilder):StringBuilder = {
-    sb.append(" ⠈")
-    for (i <- 0 until width/2) sb.append("⠉")
-    sb.append("⠁")
+  def bottomBorder():Unit = {
+    print(" ⠈")
+    for (i <- 0 until width/2) print("⠉")
+    print("⠁")
   }
 
-  override def toString: String = {
-    given sb:StringBuilder = StringBuilder(RESET)
-    //sb.append(RESET).append(s"$zeroX and $zeroY ${mapFromImageSpace(Vector2(zeroX, zeroY))} and $domain x $range\n")
+  def printOut(): Unit = {
+    //print(RESET); print(s"$zeroX and $zeroY ${mapFromImageSpace(Vector2(zeroX, zeroY))} and $domain x $range\n")
     val lines:ARRAY[String] = cimg.lines()
     padLeft("")
-    chartPadLeft(title).append("\n")
+    chartPadLeft(title); print("\n")
     padLeft("")
-    topBorder.append("\n")
-    padLeft(range.MAX.toString).append(" ⢸").append(lines.head).append("⡇\n")
+    topBorder(); print("\n")
+    padLeft(range.MAX.toString); print(" ⢸"); print(lines.head); print("⡇\n")
     val litr:Iterator[(String, Glyph)] = legend.iterator
     val footerLegend:String = if (legend.size > lines.length) {
       given lsb:StringBuilder = StringBuilder()
@@ -289,33 +288,33 @@ case class Chart( conf:ChartConfig ) {
         val (itemName:String, itemGlyph:Glyph) = litr.next()
         val legendItem:String = s"$itemGlyph$itemName"
         if (lineLength + legendItem.length + 4 > width) {  // maxItemNameLength
-          lsb.append("\n")
+          print("\n")
           padLeft("")
           lineLength = legendItem.length + 4
         } else {
           lineLength = lineLength + legendItem.length + 4
         }
-        lsb.append(legendItem).append("  ")
+        print(legendItem); print("  ")
       }
       lsb.toString()
     } else ""
     for (i <- 1 until lines.length - 1) {
       val l = if (i == lines.length / 2) verticalLabel else ""
-      padLeft(l).append(" ⢸").append(lines(i)).append("⡇")
+      padLeft(l); print(" ⢸"); print(lines(i)); print("⡇")
       if (litr.hasNext) {
         val (itemName, itemGlyph) = litr.next()
-        sb.append(itemGlyph).append(itemName)
+        print(itemGlyph); print(itemName)
       }
-      sb.append("\n")
+      print("\n")
     }
-    padLeft(range.min.toString).append(" ⢸").append(lines.last).append("⡇\n")
+    padLeft(range.min.toString); print(" ⢸"); print(lines.last); print("⡇\n")
     padLeft("")
-    bottomBorder.append("\n")
-    padLeft("").append(domain.min)
+    bottomBorder(); print("\n")
+    padLeft(""); print(domain.min)
     chartPadLeft(horizontalLabel)
     chartPadLeft(domain.MAX.toString)
-      .append("\n")
-      .append(footerLegend).append("\n")
+      ; print("\n")
+      ; print(footerLegend); print("\n")
       .toString()
   }
 

@@ -7,16 +7,17 @@ import interval.*
 import Interval.*
 import vector.*
 import Vector.*
+import ai.dragonfly.democrossy.Demonstration
 
 import Console.{BOLD, RESET}
 
-object ChartDemo {
+object ChartDemo extends Demonstration {
 
   val r = defaultRandom
 
-  def demo(implicit sb:mutable.StringBuilder = new mutable.StringBuilder()):mutable.StringBuilder = {
+  def demo():Unit = {
 
-    val lineChart:Chart = Chart("Test Line Chart", "X", "Y", `[]`(-10.0, 15.0), `[]`(-5.0, 3.0), 150, 60)
+    val lineChart:Chart = Chart("Test Line Chart", "X", "Y", `[]`(-10.0, 15.0), `[]`(-5.0, 3.0), 200, 150)
 
     var theta:Double = 0.0
     val increment:Double =  Math.PI / 10
@@ -48,13 +49,13 @@ object ChartDemo {
       )
     }
 
-    sb.append(lineChart).append("\n")
+    lineChart.printOut()
 
     val scatterPlot:Chart = Chart("Test Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
     val v2s:Array[Vector2] = new Array(50)
     for (i <- v2s.indices) v2s(i) = r.nextVector2(20).subtract(Vector2(10, 10))
     scatterPlot.scatter("Scatter 1", v2s:_*)
-    sb.append(scatterPlot).append("\n")
+    scatterPlot.printOut()
 
     val scatterPlot1:Chart = Chart("Test Connected Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
     for (i <- v2s.indices) v2s(i) = Vector2(
@@ -62,7 +63,7 @@ object ChartDemo {
       (r.nextDouble() * (20.0*(i+1.0) / v2s.length)) - (10.0*(i+1.0) / v2s.length)
     )
     scatterPlot1.connectedScatter("Connected Scatter 1", v2s:_*)
-    sb.append(scatterPlot1).append("\n")
+    scatterPlot1.printOut()
 
     val regressionPlot:Chart = Chart("Test Regression Plot", "Hours Studying", "Grade", `[]`(-10.0, 10.0), `[]`(-5.0, 5.0), 100, 50)
 
@@ -80,23 +81,20 @@ object ChartDemo {
       x = x + step
     }
     regressionPlot.scatter("Practice", v2s:_*)
-    sb.append(regressionPlot).append("\n")
+    regressionPlot.printOut()
 
     for (i <- 0 until 10) {
-      sb.append(
-        Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
-          .lineSegment(Vector2(-5, 2), Vector2(-4, 2), "2")
-          .lineSegment(Vector2(-3, 1), Vector2(-2, 1), "1")
-          .lineSegment(Vector2(-1, 0), Vector2(1, 0), "0")
-          .lineSegment(Vector2(2, -1), Vector2(3, -1), "1")
-          .lineSegment(Vector2(4, -2), Vector2(5, -2), "2")
 
-          .lineSegment(Vector2(0, -20), Vector2(0, -10), "0")
-
-      ).append("\n")
+      Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
+        .lineSegment(Vector2(-5, 2), Vector2(-4, 2), "2")
+        .lineSegment(Vector2(-3, 1), Vector2(-2, 1), "1")
+        .lineSegment(Vector2(-1, 0), Vector2(1, 0), "0")
+        .lineSegment(Vector2(2, -1), Vector2(3, -1), "1")
+        .lineSegment(Vector2(4, -2), Vector2(5, -2), "2")
+        .lineSegment(Vector2(0, -20), Vector2(0, -10), "0").printOut()
 
     }
-    sb
+
   }
 
   def name: String = "Chart"

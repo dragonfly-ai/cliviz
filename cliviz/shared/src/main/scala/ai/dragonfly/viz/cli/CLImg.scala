@@ -208,6 +208,10 @@ class CLImg(val width:Int, val height:Int) {
     out
   }
 
+  def print():Unit = {
+    for (line <- lines()) println(line)
+  }
+
   override def toString:String = {
     val sb:StringBuilder = StringBuilder()
     val ls:ARRAY[String] = lines()

@@ -6,16 +6,18 @@ ThisBuild / scalacOptions ++= Seq("-feature", "-deprecation")
 
 lazy val cliviz = crossProject(JSPlatform, JVMPlatform).settings(
   name := "cliviz",
-  version := "0.01.527",
-  libraryDependencies += "ai.dragonfly.code" %%% "vector" % "0.527"
+  version := "0.0103.527",
+  libraryDependencies ++= Seq(
+    "ai.dragonfly.code" %%% "vector" % "0.527",
+    "ai.dragonfly.code" %%% "democrossy" % "0.0103"
+  )
 ).jvmSettings().jsSettings()
 
 lazy val demo = crossProject(JSPlatform, JVMPlatform).dependsOn(cliviz).settings(
   name := "demo",
-  Compile / mainClass := Some("Demo"),
-//  libraryDependencies ++= Seq(
-//    "ai.dragonfly.code" %%% "DemoCrossy" % "0.01"
-//  )
+  Compile / mainClass := Some("Demo")
 ).jsSettings(
+  Compile / fastOptJS / artifactPath := file("./demo/public_html/js/main.js"),
+  Compile / fullOptJS / artifactPath := file("./demo/public_html/js/main.js"),
   scalaJSUseMainModuleInitializer := true
 ).jvmSettings()
