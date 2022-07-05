@@ -49,13 +49,13 @@ object ChartDemo extends Demonstration {
       )
     }
 
-    lineChart.printOut()
+    println(lineChart)
 
     val scatterPlot:Chart = Chart("Test Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
     val v2s:Array[Vector2] = new Array(50)
     for (i <- v2s.indices) v2s(i) = r.nextVector2(20).subtract(Vector2(10, 10))
     scatterPlot.scatter("Scatter 1", v2s:_*)
-    scatterPlot.printOut()
+    println(scatterPlot)
 
     val scatterPlot1:Chart = Chart("Test Connected Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
     for (i <- v2s.indices) v2s(i) = Vector2(
@@ -63,7 +63,7 @@ object ChartDemo extends Demonstration {
       (r.nextDouble() * (20.0*(i+1.0) / v2s.length)) - (10.0*(i+1.0) / v2s.length)
     )
     scatterPlot1.connectedScatter("Connected Scatter 1", v2s:_*)
-    scatterPlot1.printOut()
+    println(scatterPlot1)
 
     val regressionPlot:Chart = Chart("Test Regression Plot", "Hours Studying", "Grade", `[]`(-10.0, 10.0), `[]`(-5.0, 5.0), 100, 50)
 
@@ -81,18 +81,18 @@ object ChartDemo extends Demonstration {
       x = x + step
     }
     regressionPlot.scatter("Practice", v2s:_*)
-    regressionPlot.printOut()
+    println(regressionPlot)
 
     for (i <- 0 until 10) {
-
-      Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
-        .lineSegment(Vector2(-5, 2), Vector2(-4, 2), "2")
-        .lineSegment(Vector2(-3, 1), Vector2(-2, 1), "1")
-        .lineSegment(Vector2(-1, 0), Vector2(1, 0), "0")
-        .lineSegment(Vector2(2, -1), Vector2(3, -1), "1")
-        .lineSegment(Vector2(4, -2), Vector2(5, -2), "2")
-        .lineSegment(Vector2(0, -20), Vector2(0, -10), "0").printOut()
-
+      println(
+        Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
+          .lineSegment(Vector2(-5, 2), Vector2(-4, 2), "2")
+          .lineSegment(Vector2(-3, 1), Vector2(-2, 1), "1")
+          .lineSegment(Vector2(-1, 0), Vector2(1, 0), "0")
+          .lineSegment(Vector2(2, -1), Vector2(3, -1), "1")
+          .lineSegment(Vector2(4, -2), Vector2(5, -2), "2")
+          .lineSegment(Vector2(0, -20), Vector2(0, -10), "0")
+      )
     }
 
   }

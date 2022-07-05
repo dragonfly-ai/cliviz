@@ -7,16 +7,16 @@ object Glyph {
   val `⠀ͯ`:String = "ͯ"
   val `⠀⃘`:String = "⃘"
   val `⠀⃟`:String = "⃟"
-  val `⠀⃞`:String =  "⃞"
-  val `⠀ ⃤`:String =  "⃤"
+  val `⠀⃞`:String = "⃞"
+  val `⠀ ⃤`:String = "⃤"
   val `⠀⃠`:String = "⃠"
   val `⠀⃧`:String = "⃧"
 
-  val `⠀᷎`:String = " ᷎"
-  val `⠀᷀`:String = " ᷀"
-  val `⠀ᷘ`:String = " ᷘ"
-  val `⠀͒`:String = " ͒"
-  val `͂ `:String = "͂ "
+  val `⠀᷎`:String = "᷎"
+  val `⠀᷀`:String = "᷀"
+  val `⠀ᷘ`:String = "ᷘ"
+  val `⠀͒`:String = "͒"
+  val `͂ `:String = "͂"
   val `᷃ `:String = "᷃"
 
   val `⠀᷾`:String = "᷾"
@@ -38,22 +38,23 @@ object Glyph {
 
   def apply(strId:Int, color:Int):Glyph = Glyph( strId, color, strId > 3 )
 
-  val axis:Glyph = Glyph(-1, CLImg.GRAY, true)  // "͙"
+  val axis:Glyph = Glyph(-1, CLImg.WHITE, true)  // "͙"
 }
 
 case class Glyph(id:Int, color:Int, overlay:Boolean) {
 
-  val str:String = id match {
+  override def toString:String = id match {
     case -1 => "ͯ"
-    case pixel:Int if 0 <= pixel && pixel < 3 => "⠐"
+    case pixel:Int if 0 <= pixel && pixel < 3 => "⠒"
     case _ => Glyph.layerGlyphs(id - 3)
   }
 
-  override def toString: String = {
-    if (overlay) s"${CLImg.colorBytes(color)} $str $RESET"
-    else s"${CLImg.colorBytes(color)}$str $RESET"
-  }
+  def forceColor: String = s"${CLImg.colorBytes(color)}$toString"
 
+  def asIcon:String = {
+    if (overlay) s"${CLImg.colorBytes(color)}⠀⠀$toString⠀$RESET"
+    else s"⠀${CLImg.colorBytes(color)}$toString⠀$RESET"
+  }
 }
 
 /*

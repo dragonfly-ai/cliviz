@@ -6,10 +6,10 @@ ThisBuild / scalacOptions ++= Seq("-feature", "-deprecation")
 
 lazy val cliviz = crossProject(JSPlatform, JVMPlatform).settings(
   name := "cliviz",
-  version := "0.0103.527",
+  version := "0.0105.527",
   libraryDependencies ++= Seq(
     "ai.dragonfly.code" %%% "vector" % "0.527",
-    "ai.dragonfly.code" %%% "democrossy" % "0.0103"
+    "ai.dragonfly.code" %%% "democrossy" % "0.0105"
   )
 ).jvmSettings().jsSettings()
 

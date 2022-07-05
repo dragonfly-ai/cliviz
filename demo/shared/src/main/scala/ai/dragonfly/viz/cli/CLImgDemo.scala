@@ -37,12 +37,12 @@ object CLImgDemo extends Demonstration {
   }
 
   def demo():Unit = {
-    val ci: CLImg = new CLImg(200, 150)
+    val ci: CLImg = new CLImg(250, 150)
     for (i <- 0 until 10) {
-      randomSpiral(ci, defaultRandom.nextInt(CLImg.colorBytes.length))
+      randomSpiral(ci, i % CLImg.colorBytes.length) //defaultRandom.nextInt(CLImg.colorBytes.length))
     }
 
-    ci.print()
+    println(ci)
 
     println(s"Layers\n")
     //println("What is going on here?")

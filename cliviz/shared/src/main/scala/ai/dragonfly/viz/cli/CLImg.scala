@@ -29,7 +29,6 @@ object CLImg {
   val MAGENTA:Int = 5   // 0101
   val CYAN:Int = 6      // 0110
   val WHITE:Int = 7     // 0111
-  val GRAY:Int = 8      // 1111
 
   val colorBytes:ARRAY[String] = ARRAY[String](
     Console.BLACK,
@@ -39,7 +38,7 @@ object CLImg {
     Console.BLUE,
     Console.MAGENTA,
     Console.CYAN,
-    Console.RESET, // white on dark terminals, black on light ones.
+    //Console.RESET, // white on dark terminals, black on light ones.
     Console.WHITE  // White is actually gray.
   )
 
@@ -68,7 +67,6 @@ class CLImg(val width:Int, val height:Int) {
   }
 
   val blackChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
-  val grayChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
   val redChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
   val greenChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
   val blueChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
@@ -105,15 +103,13 @@ class CLImg(val width:Int, val height:Int) {
     if (out != WHITE && layer(i).nonEmpty) {
       var gg:Boolean = false
       for (g <- layer(i)) {
-        if (g.color != GRAY) out = out | g.color
+        if (g.color != WHITE) out = out | g.color
         else gg = true
       }
       if (gg && out == BLACK) {
-        out = GRAY
+        out = WHITE
       }
     }
-
-    if (out == BLACK && grayChannel(i) > 0) out = GRAY
 
     out
   }
@@ -124,7 +120,6 @@ class CLImg(val width:Int, val height:Int) {
       val pi:Int = (1 << (y % 4)) << (x % 2 * 4)
       color match {
         case BLACK => blackChannel(i) = blackChannel(i) | pi
-        case GRAY => grayChannel(i) = grayChannel(i) | pi
         case _ =>
           if (hasRed(color)) redChannel(i) = redChannel(i) | pi
           if (hasGreen(color)) greenChannel(i) = greenChannel(i) | pi
@@ -146,8 +141,7 @@ class CLImg(val width:Int, val height:Int) {
                     ( if ( (blueChannel(i) ^ pi) > 0 ) 4 else 0 )
 
       if (out == BLACK) {
-        if ((grayChannel(i) ^ pi) > 0) GRAY
-        else if ((blackChannel(i) ^ pi) > 0) BLACK
+        if ((blackChannel(i) ^ pi) > 0) BLACK
         else -1
       } else out
     } else -1
@@ -163,7 +157,7 @@ class CLImg(val width:Int, val height:Int) {
   def channels:ARRAY[ARRAY[String]] = ARRAY.tabulate(colorBytes.length)((channel:Int) => lines(channel) )
 
   def getPixelBytes(i:Int, channel:Int = ALL):Int = channel match {
-    case ALL => redChannel(i) | greenChannel(i) | blueChannel(i) | blackChannel(i) | grayChannel(i)
+    case ALL => redChannel(i) | greenChannel(i) | blueChannel(i) | blackChannel(i)
     case BLACK => blackChannel(i)
     case RED => redChannel(i)
     case GREEN => greenChannel(i)
@@ -172,14 +166,13 @@ class CLImg(val width:Int, val height:Int) {
     case MAGENTA => redChannel(i) & blueChannel(i)
     case CYAN => greenChannel(i) & blueChannel(i)
     case WHITE => redChannel(i) & greenChannel(i) & blueChannel(i)
-    case GRAY => grayChannel(i)
   }
 
   def lines(channel:Int = ALL):ARRAY[String] = {
     val out:ARRAY[String] = new ARRAY[String](h)
     for (y <- 0 until h) {
       var lastColor:Int = -1
-      val sb:StringBuilder = StringBuilder()
+      val ss:SegmentedString = new SegmentedString()
 
       for (x <- 0 until w) {
 
@@ -192,33 +185,28 @@ class CLImg(val width:Int, val height:Int) {
 
         if (color != lastColor || color < 0) {
           lastColor = color
-          //sb.append(RESET)
-          sb.append(colorBytes(color))
-          sb.append(brailleBytes(pattern))
+          ss.append(colorBytes(color))
+          ss.append(brailleBytes(pattern))
         } else {
-          sb.append(brailleBytes(pattern))
+          ss.append(brailleBytes(pattern))
         }
 
         for (g <- layer(i)) {
-          sb.append(g.str)
+          ss.append(g.toString)
         }
       }
-      out(y) = sb.append(RESET).toString()
+      out(y) = ss.toString()
     }
     out
   }
 
-  def print():Unit = {
-    for (line <- lines()) println(line)
-  }
-
   override def toString:String = {
-    val sb:StringBuilder = StringBuilder()
+    val ss:SegmentedString = new SegmentedString()
     val ls:ARRAY[String] = lines()
     for (line <- ls) {
-      sb.append(line).append("\n")
+      ss.append(line).append("\n")
     }
-    sb.toString()
+    ss.toString()
   }
 }
 

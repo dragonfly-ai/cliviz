@@ -11,7 +11,7 @@ import Console.*
 
 object Demo extends XApp(DivConsole(style = "padding: 8px; overflow: scroll;")) with App {
 
-    CLImgDemo.demonstrate
     ChartDemo.demonstrate
+    CLImgDemo.demonstrate
 
 }
