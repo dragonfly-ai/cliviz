@@ -6,7 +6,7 @@ import ai.dragonfly.math.interval.*
 import ai.dragonfly.math.interval.Interval.*
 import ai.dragonfly.math.vector.*
 import ai.dragonfly.math.vector.Vector.*
-import bridge.array.*
+import narr.*
 
 import scala.Console.RESET
 import scala.collection.mutable
@@ -250,24 +250,40 @@ case class Chart( conf:ChartConfig ) {
   }
 
   def padLeft(s:String)(using sb:SegmentedString):SegmentedString = {
-    for (i <- 0 until leftPaddingWidth - s.length) sb.append(" ")
+    var i:Int = 0
+    while (i < leftPaddingWidth - s.length) {
+      sb.append(" ")
+      i = i + 1
+    }
     sb.append(s)
   }
 
   def chartPadLeft(s:String)(using sb:SegmentedString):SegmentedString = {
-    for (i <- 0 until ((width/2) - s.length) / 2) sb.append("⠀")
+    var i: Int = 0
+    while (i < ((width/2) - s.length) / 2) {
+      sb.append("⠀")
+      i = i + 1
+    }
     sb.append(s)
   }
 
   def topBorder(using sb:SegmentedString):SegmentedString = {
     sb.append(" ⢀")
-    for (i <- 0 until width/2) sb.append("⣀")
+    var i: Int = 0
+    while (i < width/2) {
+      sb.append("⣀")
+      i = i + 1
+    }
     sb.append("⡀")
   }
 
   def bottomBorder(using sb:SegmentedString):SegmentedString = {
     sb.append(" ⠈")
-    for (i <- 0 until width/2) sb.append("⠉")
+    var i: Int = 0
+    while (i < width/2) {
+      sb.append("⠉")
+      i = i + 1
+    }
     sb.append("⠁")
   }
 
@@ -278,7 +294,7 @@ case class Chart( conf:ChartConfig ) {
     chartPadLeft(title).append("\n")
     padLeft("")
     topBorder.append("\n")
-    val lines:ARRAY[String] = cimg.lines()
+    val lines:NArray[String] = cimg.lines()
     padLeft(range.MAX.toString).append(" ⢸").append(lines.head).append(RESET).append("⡇\n")
     val litr:Iterator[(String, Glyph)] = legend.iterator
     val footerLegend:String = if (legend.size > lines.length) {
@@ -299,7 +315,8 @@ case class Chart( conf:ChartConfig ) {
       }
       lsb.toString()
     } else ""
-    for (i <- 1 until lines.length - 1) {
+    var i: Int = 0
+    while (i < lines.length - 1) {
       val l = if (i == lines.length / 2) verticalLabel else ""
       padLeft(l).append(" ⢸").append(lines(i)).append(RESET).append("⡇⠀")
       if (litr.hasNext) {
@@ -307,6 +324,7 @@ case class Chart( conf:ChartConfig ) {
         ss.append(s" ${itemGlyph.asIcon} $itemName")
       }
       ss.append("\n")
+      i = i + 1
     }
     padLeft(range.min.toString).append(" ⢸").append(lines.last).append(RESET).append("⡇ \n")
     padLeft("")

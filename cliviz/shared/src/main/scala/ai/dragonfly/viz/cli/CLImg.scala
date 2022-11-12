@@ -4,13 +4,13 @@ import ai.dragonfly.math.*
 import ai.dragonfly.math.Random.*
 import ai.dragonfly.math.geometry.Line
 import ai.dragonfly.math.vector.*
-import bridge.array.ARRAY
+import narr.*
 
 import scala.collection.mutable
 
 object CLImg {
 
-  val brailleBytes:ARRAY[String] = ARRAY[String](
+  val brailleBytes:NArray[String] = NArray[String](
     "⠀", "⠁", "⠂", "⠃", "⠄", "⠅", "⠆", "⠇", "⡀", "⡁", "⡂", "⡃", "⡄", "⡅", "⡆", "⡇", "⠈", "⠉", "⠊", "⠋", "⠌", "⠍", "⠎", "⠏", "⡈", "⡉", "⡊", "⡋", "⡌", "⡍", "⡎", "⡏", "⠐", "⠑", "⠒", "⠓", "⠔", "⠕", "⠖", "⠗", "⡐", "⡑", "⡒", "⡓", "⡔", "⡕", "⡖", "⡗", "⠘", "⠙", "⠚", "⠛", "⠜", "⠝", "⠞", "⠟", "⡘", "⡙", "⡚", "⡛", "⡜", "⡝", "⡞", "⡟", "⠠", "⠡", "⠢", "⠣", "⠤", "⠥", "⠦", "⠧", "⡠", "⡡", "⡢", "⡣", "⡤", "⡥", "⡦", "⡧", "⠨", "⠩", "⠪", "⠫", "⠬", "⠭", "⠮", "⠯", "⡨", "⡩", "⡪", "⡫", "⡬", "⡭", "⡮", "⡯", "⠰", "⠱", "⠲", "⠳", "⠴", "⠵", "⠶", "⠷", "⡰", "⡱", "⡲", "⡳", "⡴", "⡵", "⡶", "⡷", "⠸", "⠹", "⠺", "⠻", "⠼", "⠽", "⠾", "⠿", "⡸", "⡹", "⡺", "⡻", "⡼", "⡽", "⡾", "⡿", "⢀", "⢁", "⢂", "⢃", "⢄", "⢅", "⢆", "⢇", "⣀", "⣁", "⣂", "⣃", "⣄", "⣅", "⣆", "⣇", "⢈", "⢉", "⢊", "⢋", "⢌", "⢍", "⢎", "⢏", "⣈", "⣉", "⣊", "⣋", "⣌", "⣍", "⣎", "⣏", "⢐", "⢑", "⢒", "⢓", "⢔", "⢕", "⢖", "⢗", "⣐", "⣑", "⣒", "⣓", "⣔", "⣕", "⣖", "⣗", "⢘", "⢙", "⢚", "⢛", "⢜", "⢝", "⢞", "⢟", "⣘", "⣙", "⣚", "⣛", "⣜", "⣝", "⣞", "⣟", "⢠", "⢠", "⢢", "⢣", "⢤", "⢥", "⢦", "⢧", "⣠", "⣡", "⣢", "⣣", "⣤", "⣥", "⣦", "⣧", "⢨", "⢩", "⢪", "⢫", "⢬", "⢭", "⢮", "⢯", "⣨", "⣩", "⣪", "⣫", "⣬", "⣭", "⣮", "⣯", "⢰", "⢱", "⢲", "⢳", "⢴", "⢵", "⢶", "⢷", "⣰", "⣱", "⣲", "⣳", "⣴", "⣵", "⣶", "⣷", "⢸", "⢹", "⢺", "⢻", "⢼", "⢽", "⢾", "⢿", "⣸", "⣹", "⣺", "⣻", "⣼", "⣽", "⣾", "⣿",
   )
 
@@ -30,7 +30,7 @@ object CLImg {
   val CYAN:Int = 6      // 0110
   val WHITE:Int = 7     // 0111
 
-  val colorBytes:ARRAY[String] = ARRAY[String](
+  val colorBytes:NArray[String] = NArray[String](
     Console.BLACK,
     Console.RED,
     Console.GREEN,
@@ -66,12 +66,12 @@ class CLImg(val width:Int, val height:Int) {
     out
   }
 
-  val blackChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
-  val redChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
-  val greenChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
-  val blueChannel:ARRAY[Int] = ARRAY.fill(pixelCount)(0)
+  val blackChannel:NArray[Int] = NArray.fill(pixelCount)(0)
+  val redChannel:NArray[Int] = NArray.fill(pixelCount)(0)
+  val greenChannel:NArray[Int] = NArray.fill(pixelCount)(0)
+  val blueChannel:NArray[Int] = NArray.fill(pixelCount)(0)
 
-  val layer:ARRAY[List[Glyph]] = ARRAY.fill(pixelCount)(List[Glyph]())
+  val layer:NArray[List[Glyph]] = NArray.fill(pixelCount)(List[Glyph]())
 
   inline def hasRed(color:Int):Boolean = color match {
     case RED => true
@@ -154,7 +154,7 @@ class CLImg(val width:Int, val height:Int) {
     this
   }
 
-  def channels:ARRAY[ARRAY[String]] = ARRAY.tabulate(colorBytes.length)((channel:Int) => lines(channel) )
+  def channels:NArray[NArray[String]] = NArray.tabulate(colorBytes.length)((channel:Int) => lines(channel) )
 
   def getPixelBytes(i:Int, channel:Int = ALL):Int = channel match {
     case ALL => redChannel(i) | greenChannel(i) | blueChannel(i) | blackChannel(i)
@@ -168,13 +168,15 @@ class CLImg(val width:Int, val height:Int) {
     case WHITE => redChannel(i) & greenChannel(i) & blueChannel(i)
   }
 
-  def lines(channel:Int = ALL):ARRAY[String] = {
-    val out:ARRAY[String] = new ARRAY[String](h)
-    for (y <- 0 until h) {
+  def lines(channel:Int = ALL):NArray[String] = {
+    val out:NArray[String] = NArray.ofSize[String](h)
+    var y:Int = 0
+    while (y < h) {
       var lastColor:Int = -1
       val ss:SegmentedString = new SegmentedString()
 
-      for (x <- 0 until w) {
+      var x:Int = 0
+      while (x < w) {
 
         val i:Int = (y * w) + x
 
@@ -194,15 +196,17 @@ class CLImg(val width:Int, val height:Int) {
         for (g <- layer(i)) {
           ss.append(g.toString)
         }
+        x = x + 1
       }
       out(y) = ss.toString()
+      y = y + 1
     }
     out
   }
 
   override def toString:String = {
     val ss:SegmentedString = new SegmentedString()
-    val ls:ARRAY[String] = lines()
+    val ls:NArray[String] = lines()
     for (line <- ls) {
       ss.append(line).append("\n")
     }

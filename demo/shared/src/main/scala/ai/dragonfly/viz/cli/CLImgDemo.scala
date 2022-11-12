@@ -5,7 +5,7 @@ import Random.*
 import ai.dragonfly.democrossy.Demonstration
 import vector.*
 import geometry.Line
-import visualization.ConsoleImage.{BLACK, GRAY, WHITE, colorBytes}
+import ai.dragonfly.viz.cli.CLImg.{BLACK, WHITE, colorBytes}
 
 import scala.collection.mutable
 
