@@ -14,6 +14,4 @@ object Demo extends XApp(DivConsole(style = "padding: 8px; overflow: scroll;")) 
     ChartDemo.demonstrate
     CLImgDemo.demonstrate
 
-
-
 }

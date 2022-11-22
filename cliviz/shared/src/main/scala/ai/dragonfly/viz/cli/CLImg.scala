@@ -210,6 +210,7 @@ class CLImg(val width:Int, val height:Int) {
     for (line <- ls) {
       ss.append(line).append("\n")
     }
+    ss.append(s"${Console.RESET}")
     ss.toString()
   }
 }
