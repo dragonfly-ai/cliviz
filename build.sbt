@@ -8,9 +8,9 @@ lazy val cliviz = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .settings(
     name := "cliviz",
-    version := "0.02.5321",
+    version := "0.02.5401",
     libraryDependencies ++= Seq(
-      "ai.dragonfly.code" %%% "vector" % "0.5321",
+      "ai.dragonfly.code" %%% "vector" % "0.5401",
       "ai.dragonfly.code" %%% "democrossy" % "0.02"
     )
   ).jvmSettings().jsSettings()
