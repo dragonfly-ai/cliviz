@@ -1,5 +1,6 @@
 # cliviz
-A Scala library for Command Line Interface Visualizations that cross compiles to Scala.js, JVM, and Scala Native.<br /><a href="https://dragonfly-ai.github.io/cliviz/">Try the demo</a>.
+A Scala library for Command Line Interface Visualizations  inspired by <a href="https://github.com/JuliaPlots/UnicodePlots.jl">Julia Plots</a>.<br />
+cliviz cross compiles to Scala.js, JVM, and Scala Native, so you can <a href="https://dragonfly-ai.github.io/cliviz/">try the demo</a> directly in the browser.
 
 Features:
 <ul>
@@ -32,4 +33,4 @@ libraryDependencies += "ai.dragonfly" %%% "cliviz" % "<LATEST_VERSION>"
 ```
 <br />
 
-See a live demo here: https://dragonfly.ai/cliviz/index.html
+See a live demo here: https://dragonfly-ai.github.io/cliviz/
