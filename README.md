@@ -25,7 +25,6 @@ Combined Pots (Scatter and line):<br />
 </li>
 <li>
 Histogram plots:
-Histogram Plot:
 
 ```
 [-17.00,-11.00 ) 🌑 ︙    ∝ 3.0E-4
