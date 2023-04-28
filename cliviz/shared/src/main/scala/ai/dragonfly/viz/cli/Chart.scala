@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 dragonfly.ai
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ai.dragonfly.viz.cli
 
 import ai.dragonfly.math.*
@@ -5,7 +21,8 @@ import ai.dragonfly.math.Random.*
 import ai.dragonfly.math.interval.*
 import ai.dragonfly.math.interval.Interval.*
 import ai.dragonfly.math.vector.*
-import ai.dragonfly.math.vector.Vector.*
+import ai.dragonfly.math.vector.Vec.*
+import ai.dragonfly.math.vector.Vec2.*
 import narr.*
 
 import scala.Console.RESET
@@ -86,7 +103,7 @@ case class Chart( conf:ChartConfig ) {
   }
 
 
-  def mapToImageSpace(v:Vector2):Vector2 = Vector2(
+  def mapToImageSpace(v:Vec[2]):Vec[2] = Vec[2](
     (scaleX * (v.x - domain.min)) + aXa,
     (scaleY * (v.y - range.min)) + aYa
   )
@@ -97,8 +114,8 @@ case class Chart( conf:ChartConfig ) {
   if (domain.rangeContains(0.0)) {
 
     glyphLineSegment(
-      Vector2(0.0, range.min),
-      Vector2(0.0, range.MAX),
+      Vec[2](0.0, range.min),
+      Vec[2](0.0, range.MAX),
       Glyph.axis
     )
 
@@ -107,8 +124,8 @@ case class Chart( conf:ChartConfig ) {
   // Horizontal Axis? "⃨⃛" "͞"
   if (range.rangeContains(0.0)) {
     glyphLineSegment(
-      Vector2(domain.min, 0.0),
-      Vector2(domain.MAX, 0.0),
+      Vec[2](domain.min, 0.0),
+      Vec[2](domain.MAX, 0.0),
       Glyph.axis
     )
   }
@@ -118,15 +135,15 @@ case class Chart( conf:ChartConfig ) {
   private val legend:mutable.TreeMap[String, Glyph] = mutable.TreeMap[String, Glyph]()
 
 
-  def glyphLineSegment(p1: Vector2, p2: Vector2, glyph:Glyph):Chart = {
+  def glyphLineSegment(p1: Vec[2], p2: Vec[2], glyph:Glyph):Chart = {
     val unitWidth:Int = 2
     val unitHeight:Int = 4
 
     val pi1 = mapToImageSpace(p1)
-    val start:Vector2 = Vector2( pi1.x / unitWidth, pi1.y / unitHeight)
+    val start:Vec[2] = Vec[2]( pi1.x / unitWidth, pi1.y / unitHeight)
 
     val pi2 = mapToImageSpace(p2)
-    val end:Vector2 = Vector2(pi2.x / unitWidth, pi2.y / unitHeight)
+    val end:Vec[2] = Vec[2](pi2.x / unitWidth, pi2.y / unitHeight)
 
     val hm:mutable.TreeMap[Int, Interval[Int]] = mutable.TreeMap[Int, Interval[Int]]()
 
@@ -161,18 +178,18 @@ case class Chart( conf:ChartConfig ) {
     this
   }
 
-  def glyphLine(point: Vector2, slope:Double, name:String, glyph:Glyph):Chart = {
+  def glyphLine(point: Vec[2], slope:Double, name:String, glyph:Glyph):Chart = {
     val b:Double = (-point.x * slope) + point.y
 
-    val start:Vector2 = Vector2(domain.min, domain.min * slope + b)
-    val end:Vector2 = Vector2(domain.MAX, domain.MAX * slope + b)
+    val start:Vec[2] = Vec[2](domain.min, domain.min * slope + b)
+    val end:Vec[2] = Vec[2](domain.MAX, domain.MAX * slope + b)
 
     glyphLineSegment(start, end, glyph)
   }
 
   private var maxItemNameLength:Int = 0
 
-  def lineSegment(p1: Vector2, p2:Vector2, name:String):Chart = {
+  def lineSegment(p1: Vec[2], p2:Vec[2], name:String):Chart = {
     val glyph = legend.getOrElseUpdate(name, Glyph(legend.size))
     maxItemNameLength = Math.max(maxItemNameLength, name.length + 2)
 
@@ -180,8 +197,8 @@ case class Chart( conf:ChartConfig ) {
       glyphLineSegment(p1, p2, glyph)
     } else {
 
-      val start:Vector2 = mapToImageSpace(p1)
-      val end:Vector2 = mapToImageSpace(p2)
+      val start:Vec[2] = mapToImageSpace(p1)
+      val end:Vec[2] = mapToImageSpace(p2)
 
       ai.dragonfly.math.geometry.Line.trace2D(start, end, (dX:Int, dY:Int) => {
         cimg.setPixel(dX, (cimg.height - 1) - dY, glyph.color)
@@ -190,7 +207,7 @@ case class Chart( conf:ChartConfig ) {
     }
   }
 
-  def line(point: Vector2, slope:Double, name:String):Chart = {
+  def line(point: Vec[2], slope:Double, name:String):Chart = {
     val glyph = legend.getOrElseUpdate(name, Glyph(legend.size))
     maxItemNameLength = Math.max(maxItemNameLength, name.length + 2)
 
@@ -199,14 +216,14 @@ case class Chart( conf:ChartConfig ) {
     } else {
       val b:Double = (-point.x * slope) + point.y
 
-      val start:Vector2 = Vector2(domain.min, domain.min * slope + b)
-      val end:Vector2 = Vector2(domain.MAX, domain.MAX * slope + b)
+      val start:Vec[2] = Vec[2](domain.min, domain.min * slope + b)
+      val end:Vec[2] = Vec[2](domain.MAX, domain.MAX * slope + b)
 
       lineSegment(start, end, name)
     }
   }
 
-  private def plotGlyph(glyph:Glyph)(p:Vector2): Unit = {
+  private def plotGlyph(glyph:Glyph)(p:Vec[2]): Unit = {
     val pT = mapToImageSpace(p)
     cimg.setGlyph(
       pT.x.toInt,
@@ -215,7 +232,7 @@ case class Chart( conf:ChartConfig ) {
     )
   }
 
-  private def plotPixel(glyph:Glyph)(p:Vector2):Unit = {
+  private def plotPixel(glyph:Glyph)(p:Vec[2]):Unit = {
     val pT = mapToImageSpace(p)
     cimg.setPixel(
       pT.x.toInt,
@@ -224,19 +241,19 @@ case class Chart( conf:ChartConfig ) {
     )
   }
 
-  def scatter(name:String, points:Vector2*):Chart = {
+  def scatter(name:String, points:Vec[2]*):Chart = {
     val glyph = legend.getOrElseUpdate(name, Glyph(legend.size))
     maxItemNameLength = Math.max(maxItemNameLength, name.length + 2)
 
     points.foreach(
-      if (glyph.overlay) (p:Vector2) => plotGlyph(glyph)(p)
-      else (p:Vector2) => plotPixel(glyph)(p)
+      if (glyph.overlay) (p:Vec[2]) => plotGlyph(glyph)(p)
+      else (p:Vec[2]) => plotPixel(glyph)(p)
     )
 
     this
   }
 
-  def connectedScatter(name:String, points:Vector2*):Chart = {
+  def connectedScatter(name:String, points:Vec[2]*):Chart = {
     var p = points.head
     var tail = points.tail
 
@@ -289,7 +306,7 @@ case class Chart( conf:ChartConfig ) {
 
   override def toString: String = {
     given ss:SegmentedString = new SegmentedString().append(RESET)
-    //ss.append(RESET).append(s"$zeroX and $zeroY ${mapFromImageSpace(Vector2(zeroX, zeroY))} and $domain x $range\n")
+    //ss.append(RESET).append(s"$zeroX and $zeroY ${mapFromImageSpace(Vec[2](zeroX, zeroY))} and $domain x $range\n")
     padLeft("")
     chartPadLeft(title).append("\n")
     padLeft("")

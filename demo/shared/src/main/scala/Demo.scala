@@ -9,7 +9,7 @@ import Console.*
  * Created by clifton on 1/9/17.
  */
 
-object Demo extends XApp(DivConsole(style = "padding: 8px; overflow: scroll;")) with App {
+object Demo extends XApp(NativeConsole(style = "padding: 8px; overflow: scroll;")) with App {
 
     ChartDemo.demonstrate
     CLImgDemo.demonstrate
