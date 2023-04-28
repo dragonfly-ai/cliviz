@@ -1,4 +1,4 @@
-# Vector
+# cliviz
 ## About this Demo:
 &nbsp;&nbsp;&nbsp;The Console Output below exercises various features of the cliviz library:<br />
 

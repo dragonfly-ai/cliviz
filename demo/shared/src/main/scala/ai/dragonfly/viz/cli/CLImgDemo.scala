@@ -39,15 +39,14 @@ object CLImgDemo extends Demonstration {
   }
 
   def demo():Unit = {
-    val ci: CLImg = new CLImg(250, 150)
-    for (i <- 0 until 10) {
-      randomSpiral(ci, i % CLImg.colorBytes.length) //defaultRandom.nextInt(CLImg.colorBytes.length))
+    val ci: CLImg = new CLImg(100, 50)
+    for (i <- 0 until 5) {
+      randomSpiral(ci, i % CLImg.colorBytes.length)
     }
 
     println(ci)
 
-    println(s"Layers\n")
-    //println("What is going on here?")
+    println(s"The image above split into independent color channels: \n")
 
     for (channel <- ci.channels) {
       for (line <- channel) {

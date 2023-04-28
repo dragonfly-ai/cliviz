@@ -19,7 +19,7 @@ object ChartDemo extends Demonstration {
 
   def demo():Unit = {
 
-    val lineChart:Chart = Chart("Test Line Chart", "X", "Y", `[]`(-10.0, 15.0), `[]`(-5.0, 3.0), 200, 150)
+    val lineChart:Chart = Chart("Color Coded Line Chart with Diverse Glyphs", "X", "Y", `[]`(-10.0, 15.0), `[]`(-5.0, 3.0), 100, 50)
 
     var theta:Double = 0.0
     val increment:Double =  Math.PI / 10
@@ -53,21 +53,21 @@ object ChartDemo extends Demonstration {
 
     println(lineChart)
 
-    val scatterPlot:Chart = Chart("Test Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
+    val scatterPlot:Chart = Chart("Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 50)
     val v2s:Array[Vec[2]] = new Array(50)
     for (i <- v2s.indices) v2s(i) = r.nextVec[2](20).subtract(Vec[2](10, 10))
     scatterPlot.scatter("Scatter 1", v2s:_*)
     println(scatterPlot)
 
-    val scatterPlot1:Chart = Chart("Test Connected Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 100)
+    val scatterPlot1:Chart = Chart("Connected Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 50)
     for (i <- v2s.indices) v2s(i) = Vec[2](
       (i * (20.0 / v2s.length)) - 10.0,
       (r.nextDouble() * (20.0*(i+1.0) / v2s.length)) - (10.0*(i+1.0) / v2s.length)
     )
-    scatterPlot1.connectedScatter("Connected Scatter 1", v2s:_*)
+    scatterPlot1.connectedScatter("Sea Level", v2s:_*)
     println(scatterPlot1)
 
-    val regressionPlot:Chart = Chart("Test Regression Plot", "Hours Studying", "Grade", `[]`(-10.0, 10.0), `[]`(-5.0, 5.0), 100, 50)
+    val regressionPlot:Chart = Chart("Regression Plot: Combined Scatter and Line Plots", "Net Worth", "Happiness", `[]`(-10.0, 10.0), `[]`(-5.0, 5.0), 100, 50)
 
     val point:Vec[2] = Vec[2](0, -1)
     val slope:Double = 1.0 / 3.0
@@ -85,17 +85,17 @@ object ChartDemo extends Demonstration {
     regressionPlot.scatter("Practice", v2s:_*)
     println(regressionPlot)
 
-    for (i <- 0 until 10) {
-      println(
-        Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
-          .lineSegment(Vec[2](-5, 2), Vec[2](-4, 2), "2")
-          .lineSegment(Vec[2](-3, 1), Vec[2](-2, 1), "1")
-          .lineSegment(Vec[2](-1, 0), Vec[2](1, 0), "0")
-          .lineSegment(Vec[2](2, -1), Vec[2](3, -1), "1")
-          .lineSegment(Vec[2](4, -2), Vec[2](5, -2), "2")
-          .lineSegment(Vec[2](0, -20), Vec[2](0, -10), "0")
-      )
-    }
+//    for (i <- 0 until 10) {
+//      println(
+//        Chart("Axis Test", "", "X", "Y", `[]`(-5.0, 5.0), `[]`(-25.0, 25.0), 150 + i, 110 + i)
+//          .lineSegment(Vec[2](-5, 2), Vec[2](-4, 2), "2")
+//          .lineSegment(Vec[2](-3, 1), Vec[2](-2, 1), "1")
+//          .lineSegment(Vec[2](-1, 0), Vec[2](1, 0), "0")
+//          .lineSegment(Vec[2](2, -1), Vec[2](3, -1), "1")
+//          .lineSegment(Vec[2](4, -2), Vec[2](5, -2), "2")
+//          .lineSegment(Vec[2](0, -20), Vec[2](0, -10), "0")
+//      )
+//    }
 
   }
 
