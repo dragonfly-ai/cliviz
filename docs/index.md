@@ -2,7 +2,7 @@
 ## About this Demo:
 &nbsp;&nbsp;&nbsp;The Console Output below exercises various features of the cliviz library:<br />
 
-<div id="console"></div>
+<div id="console" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', Ubuntu, monospace;"></div>
 
 <script type="application/javascript" src="js/main.js"></script>
 
