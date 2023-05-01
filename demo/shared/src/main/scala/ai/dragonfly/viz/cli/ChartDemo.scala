@@ -21,9 +21,6 @@ object ChartDemo extends Demonstration {
 
     val lineChart:Chart = Chart("Color Coded Line Chart with Diverse Glyphs", "X", "Y", `[]`(-10.0, 15.0), `[]`(-5.0, 3.0), 100, 50)
 
-    var theta:Double = 0.0
-    val increment:Double =  Math.PI / 10
-
     val lines:NArray[(Vec[2], Double)] = NArray[(Vec[2], Double)](
       (Vec[2](-9.0, 0.0), -1.25),
       (Vec[2](-7.0, 0.0), -1.0),
@@ -56,7 +53,7 @@ object ChartDemo extends Demonstration {
     val scatterPlot:Chart = Chart("Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 50)
     val v2s:Array[Vec[2]] = new Array(50)
     for (i <- v2s.indices) v2s(i) = r.nextVec[2](20).subtract(Vec[2](10, 10))
-    scatterPlot.scatter("Scatter 1", v2s:_*)
+    scatterPlot.scatter("f(x,y) > 0", v2s:_*)
     println(scatterPlot)
 
     val scatterPlot1:Chart = Chart("Connected Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 50)

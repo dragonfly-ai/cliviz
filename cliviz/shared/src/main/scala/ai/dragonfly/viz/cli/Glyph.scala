@@ -21,11 +21,11 @@ import scala.Console.RESET
 object Glyph {
 
   val `⠀ͯ`:String = "ͯ"
-  val `⠀⃘`:String = "⃘"
+  //val `⠀⃘`:String = "⃘"
   val `⠀⃟`:String = "⃟"
   val `⠀⃞`:String = "⃞"
   val `⠀ ⃤`:String = "⃤"
-  val `⠀⃠`:String = "⃠"
+  //val `⠀⃠`:String = "⃠"
   val `⠀⃧`:String = "⃧"
 
   val `⠀᷎`:String = "᷎"
@@ -46,7 +46,8 @@ object Glyph {
 
   //    ⃘⃟⃞⃤⃠  <-- See?  They draw on top of each other.
   private val layerGlyphs:Array[String] = Array[String](
-    `⠀ͯ`, `⠀⃘`, `⠀⃟`, `⠀⃞`, `⠀ ⃤`, `⠀⃠`, `⠀⃧`, `⠀᷎`, `⠀᷀`, `⠀ᷘ`, `⠀͒`, `͂ `, `᷃ `, `⠀᷾`, `⠀͐`, `⠀̀`, `⠀́`, `⠀ͣ`, `⠀͚`, `⠀ͦ`, `⠀ͨ`
+    // `⠀⃘`, `⠀⃠`,
+    `⠀ͯ`, `⠀⃟`, `⠀⃞`, `⠀ ⃤`, `⠀⃧`, `⠀᷎`, `⠀᷀`, `⠀ᷘ`, `⠀͒`, `͂ `, `᷃ `, `⠀᷾`, `⠀͐`, `⠀̀`, `⠀́`, `⠀ͣ`, `⠀͚`, `⠀ͦ`, `⠀ͨ`
   )
 
 
@@ -58,7 +59,6 @@ object Glyph {
 }
 
 case class Glyph(id:Int, color:Int, overlay:Boolean) {
-
   override def toString:String = id match {
     case -1 => "ͯ"
     case pixel:Int if 0 <= pixel && pixel < 3 => "⠒"

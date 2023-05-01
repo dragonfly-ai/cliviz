@@ -20,6 +20,10 @@ Line Plots:<br />
 <img src="https://dragonfly-ai.github.io/cliviz/img/linePlot.png" />
 </li>
 <li>
+Scatter Plots:<br />
+<img src="https://dragonfly-ai.github.io/cliviz/img/scatterPlot.png" />
+</li>
+<li>
 Combined Pots (Scatter and line):<br />
 <img src="https://dragonfly-ai.github.io/cliviz/img/regressionPlot.png" />
 </li>

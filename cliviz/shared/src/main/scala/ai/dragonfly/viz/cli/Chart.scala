@@ -332,7 +332,7 @@ case class Chart( conf:ChartConfig ) {
       }
       lsb.toString()
     } else ""
-    var i: Int = 0
+    var i: Int = 1
     while (i < lines.length - 1) {
       val l = if (i == lines.length / 2) verticalLabel else ""
       padLeft(l).append(" ⢸").append(lines(i)).append(RESET).append("⡇⠀")
