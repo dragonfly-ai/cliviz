@@ -1,6 +1,6 @@
 # cliviz
 ## About this Demo:
-&nbsp;&nbsp;&nbsp;The Console Output below exercises various features of the cliviz library:<br />
+&nbsp;&nbsp;&nbsp;The Console Output below exercises various features of the cliviz library, but rendering quality depends heavily on system specific unicode configuration:<br />
 
 <div id="console"></div>
 
