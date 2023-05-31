@@ -14,7 +14,7 @@ import scala.collection.mutable
 object CLImgDemo extends Demonstration {
 
   def randomSpiral(ci:CLImg, color:Int):CLImg = {
-    val p:Vec[2] = defaultRandom.next(Vec[2](ci.width, ci.height))
+    val p:Vec[2] = defaultRandom.nextVec[2](Vec[2](ci.width, ci.height))
     val v:Vec[2] = Vec[2](1.0, 0.0)
     val s = 1.002 + (Math.random() * 0.0002)
     val dT:Double = (Math.random() - 0.5) * Math.PI / 100.0
