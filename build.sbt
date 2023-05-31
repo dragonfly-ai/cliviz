@@ -3,6 +3,7 @@ val globalScalaVersion = "3.2.2"
 
 ThisBuild / organization := "ai.dragonfly"
 ThisBuild / organizationName := "dragonfly.ai"
+ThisBuild / resolvers := Resolver.sonatypeOssRepos("releases")
 ThisBuild / startYear := Some(2023)
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List( tlGitHubDev("dragonfly-ai", "dragonfly.ai") )
