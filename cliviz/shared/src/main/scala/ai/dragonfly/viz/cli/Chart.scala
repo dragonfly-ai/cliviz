@@ -17,12 +17,9 @@
 package ai.dragonfly.viz.cli
 
 import ai.dragonfly.math.*
-import ai.dragonfly.math.Random.*
 import ai.dragonfly.math.interval.*
-import ai.dragonfly.math.interval.Interval.*
 import ai.dragonfly.math.vector.*
 import ai.dragonfly.math.vector.Vec.*
-import ai.dragonfly.math.vector.Vec2.*
 import narr.*
 
 import scala.Console.RESET

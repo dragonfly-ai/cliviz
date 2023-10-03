@@ -1,6 +1,5 @@
 package ai.dragonfly.viz.cli
 
-import scala.collection.mutable
 import narr.*
 import ai.dragonfly.math.*
 import Random.*
@@ -8,14 +7,13 @@ import interval.*
 import Interval.*
 import vector.*
 import Vec.*
-import Vec2.*
 import ai.dragonfly.democrossy.Demonstration
 
-import Console.{BOLD, RESET}
+import scala.util.Random
 
 object ChartDemo extends Demonstration {
 
-  val r = defaultRandom
+  val r: Random = defaultRandom
 
   def demo():Unit = {
 
@@ -73,7 +71,7 @@ object ChartDemo extends Demonstration {
     regressionPlot.line(point, slope, "Theory")
 
     var x:Double = regressionPlot.conf.domain.min
-    val step = (regressionPlot.conf.domain.norm) / v2s.length
+    val step = regressionPlot.conf.domain.norm / v2s.length
     for (i <- v2s.indices) {
       v2s(i) = Vec[2](x, (slope * x) + b + (4.0 * (r.nextDouble() - 0.5)))
       //println(v2s(i))

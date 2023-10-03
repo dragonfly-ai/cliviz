@@ -3,8 +3,6 @@ import ai.dragonfly.democrossy.*
 
 import ai.dragonfly.viz.cli.{CLImgDemo, ChartDemo}
 
-import Console.*
-
 /**
  * Created by clifton on 1/9/17.
  */

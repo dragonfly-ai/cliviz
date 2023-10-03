@@ -16,13 +16,7 @@
 
 package ai.dragonfly.viz.cli
 
-import ai.dragonfly.math.*
-import ai.dragonfly.math.Random.*
-import ai.dragonfly.math.geometry.Line
-import ai.dragonfly.math.vector.*
 import narr.*
-
-import scala.collection.mutable
 
 object CLImg {
 
@@ -63,7 +57,6 @@ object CLImg {
 
 class CLImg(val width:Int, val height:Int) {
 
-  import Console.{BOLD, RESET}
   import CLImg.*
 
   private val w:Int = width >> 1   // width / 2

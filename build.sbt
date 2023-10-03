@@ -1,5 +1,5 @@
-val appVersion:String = "0.102"
-val globalScalaVersion = "3.2.2"
+val appVersion:String = "0.103"
+val globalScalaVersion = "3.3.0"
 
 ThisBuild / organization := "ai.dragonfly"
 ThisBuild / organizationName := "dragonfly.ai"
@@ -22,7 +22,7 @@ lazy val cliviz = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .settings(
     libraryDependencies ++= Seq(
-      "ai.dragonfly" %%% "vector" % "0.101",
+      "ai.dragonfly" %%% "slash" % "0.1",
     )
   ).jvmSettings().jsSettings()
 

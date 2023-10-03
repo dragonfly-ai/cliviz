@@ -5,11 +5,8 @@ import Random.*
 import ai.dragonfly.democrossy.Demonstration
 import vector.*
 import Vec.*
-import Vec2.*
 import geometry.Line
-import ai.dragonfly.viz.cli.CLImg.{BLACK, WHITE, colorBytes}
-
-import scala.collection.mutable
+import ai.dragonfly.viz.cli.CLImg.colorBytes
 
 object CLImgDemo extends Demonstration {
 
