@@ -9,23 +9,23 @@ Features:
 Editable Command Line Image class: `CLImg`
 
 This example features randomly generated and randomly colored spirals rendered to the command line output:<br />
-<img src="https://dragonfly-ai.github.io/cliviz/img/climg.png" />
+<img src="https://raw.githubusercontent.com/dragonfly-ai/cliviz/refs/heads/main/screenshots/climg.png" alt="Unicode Spirals." />
 </li>
 <li>
 Time Series Plots:<br />
-<img src="https://dragonfly-ai.github.io/cliviz/img/connectedScatter.png" />
+<img src="https://raw.githubusercontent.com/dragonfly-ai/cliviz/refs/heads/main/screenshots/connectedScatter.png" alt="Unicode Spirals." />
 </li>
 <li>
 Line Plots:<br />
-<img src="https://dragonfly-ai.github.io/cliviz/img/linePlot.png" />
+<img src="https://raw.githubusercontent.com/dragonfly-ai/cliviz/refs/heads/main/screenshots/linePlot.png" alt="Unicode Line Plot." />
 </li>
 <li>
 Scatter Plots:<br />
-<img src="https://dragonfly-ai.github.io/cliviz/img/scatterPlot.png" />
+<img src="https://raw.githubusercontent.com/dragonfly-ai/cliviz/refs/heads/main/screenshots/scatterPlot.png" alt="Unicode Scatter Plot." />
 </li>
 <li>
 Combined Pots (Scatter and line):<br />
-<img src="https://dragonfly-ai.github.io/cliviz/img/regressionPlot.png" />
+<img src="https://raw.githubusercontent.com/dragonfly-ai/cliviz/refs/heads/main/screenshots/regressionPlot.png" alt="Unicode Regression Plot." />
 </li>
 <li>
 Histogram plots:
