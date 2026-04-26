@@ -1,14 +1,12 @@
 package ai.dragonfly.viz.cli
 
-import ai.dragonfly.math.*
+import slash.*
 import Random.*
-import ai.dragonfly.democrossy.Demonstration
 import vector.*
 import Vec.*
 import geometry.Line
-import ai.dragonfly.viz.cli.CLImg.colorBytes
 
-object CLImgDemo extends Demonstration {
+object CLImgDemo extends App {
 
   def randomSpiral(ci:CLImg, color:Int):CLImg = {
     val p:Vec[2] = defaultRandom.nextVec[2](Vec[2](ci.width, ci.height))
@@ -19,7 +17,8 @@ object CLImgDemo extends Demonstration {
     val end = squareInPlace(ci.width) + squareInPlace(ci.height)
     while (v.magnitudeSquared < end){
       pV = p + v
-      v.rotate(dT).scale(s)
+      v.rotate(dT)
+      v.scale(s)
       Line.trace2D(
         pV,
         p + v,
@@ -27,6 +26,7 @@ object CLImgDemo extends Demonstration {
           if (dX >= 0 && dX < ci.width) {
             if (dY >= 0 && dY < ci.height) {
               ci.setPixel(dX, dY, color)
+              ()
             }
           }
         }

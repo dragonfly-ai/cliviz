@@ -16,10 +16,10 @@
 
 package ai.dragonfly.viz.cli
 
-import ai.dragonfly.math.*
-import ai.dragonfly.math.interval.*
-import ai.dragonfly.math.vector.*
-import ai.dragonfly.math.vector.Vec.*
+import slash.*
+import slash.interval.*
+import slash.vector.*
+import slash.vector.Vec.*
 import narr.*
 
 import scala.Console.RESET
@@ -124,7 +124,7 @@ case class Chart( conf:ChartConfig ) {
       Vec[2](0.0, range.MAX),
       "Axis"
     )
-
+    ()
   }
 
   // Horizontal Axis? "⃨⃛" "͞"
@@ -134,6 +134,7 @@ case class Chart( conf:ChartConfig ) {
       Vec[2](domain.MAX, 0.0),
       "Axis"
     )
+    ()
   }
 
   private var maxItemNameLength:Int = 0
@@ -144,8 +145,9 @@ case class Chart( conf:ChartConfig ) {
     val start:Vec[2] = mapToImageSpace(p1)
     val end:Vec[2] = mapToImageSpace(p2)
 
-    ai.dragonfly.math.geometry.Line.trace2D(start, end, (dX:Int, dY:Int) => {
+    slash.geometry.Line.trace2D(start, end, (dX:Int, dY:Int) => {
       cimg.setPixel(dX, (cimg.height - 1) - dY, lookUpColor(name))
+      ()
     })
     this
   }
@@ -168,6 +170,7 @@ case class Chart( conf:ChartConfig ) {
       (cimg.height - 1) - pT.y.toInt,
       c
     )
+    ()
   }
 
   def scatter(name:String, points:Vec[2]*):Chart = {
@@ -256,6 +259,7 @@ case class Chart( conf:ChartConfig ) {
           lineLength = lineLength + legendItem.length + 4
         }
         lsb.append(legendItem).append("  ")
+        ()
       }
       lsb.toString()
     } else ""
@@ -266,6 +270,7 @@ case class Chart( conf:ChartConfig ) {
       if (litr.hasNext) {
         val (itemName, c) = litr.next()
         ss.append(s" ${makeIcon(c)} $itemName")
+        ()
       }
       ss.append("\n")
       i = i + 1

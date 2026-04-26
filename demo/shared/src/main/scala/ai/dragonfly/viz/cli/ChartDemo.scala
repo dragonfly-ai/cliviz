@@ -1,17 +1,15 @@
 package ai.dragonfly.viz.cli
 
 import narr.*
-import ai.dragonfly.math.*
+import slash.*
 import Random.*
 import interval.*
-import Interval.*
 import vector.*
 import Vec.*
-import ai.dragonfly.democrossy.Demonstration
 
 import scala.util.Random
 
-object ChartDemo extends Demonstration {
+object ChartDemo extends App {
 
   val r: Random = defaultRandom
 
@@ -50,7 +48,8 @@ object ChartDemo extends Demonstration {
 
     val scatterPlot:Chart = Chart("Scatter Plot", "X", "Y", `[]`(-10.0, 10.0), `[]`(-10.0, 10.0), 100, 50)
     val v2s:Array[Vec[2]] = new Array(50)
-    for (i <- v2s.indices) v2s(i) = r.nextVec[2](20).subtract(Vec[2](10, 10))
+    val tens: Vec[2] = Vec[2](10, 10)
+    for (i <- v2s.indices) v2s(i) = r.nextVec[2](20) - tens
     scatterPlot.scatter("f(x,y) > 0", v2s:_*)
     println(scatterPlot)
 
