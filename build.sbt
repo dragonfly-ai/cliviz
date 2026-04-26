@@ -29,26 +29,14 @@ lazy val demo = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .enablePlugins(NoPublishPlugin)
   .dependsOn(cliviz)
   .settings(
-//    libraryDependencies ++= Seq(
-//      "ai.dragonfly" %%% "democrossy" % "0.102"
-//    ),
     name := "demo",
     Compile / mainClass := Some("Demo")
   ).jsSettings(
-    Compile / fullOptJS / artifactPath := file("./docs/js/main.js"),
     scalaJSUseMainModuleInitializer := true
   ).jvmSettings()
 
 
 lazy val root = tlCrossRootProject.aggregate(cliviz).settings(name := "cliviz")
-
-lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin).settings(
-  mdocVariables := Map(
-    "VERSION" -> appVersion,
-    "SCALA_VERSION" -> globalScalaVersion
-  ),
-  laikaConfig ~= { _.withRawContent }
-)
 
 lazy val unidocs = project
   .in(file("unidocs"))
