@@ -2,6 +2,10 @@
 A Scala library for Command Line Interface Visualizations  inspired by <a href="https://github.com/JuliaPlots/UnicodePlots.jl">Julia Plots</a>.<br />
 cliviz cross compiles to Scala.js, JVM, and Scala Native, so you can <a href="https://dragonfly-ai.github.io/cliviz/">try the demo</a> directly in the browser.
 
+CliViz adds chart and plot capabilities to logs and command line programs.
+
+Unfortunately, because this library depends on specific Unicode braille characters, it only works well in Linux terminals.
+
 Features:
 <ul>
 <li>
