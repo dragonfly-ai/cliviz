@@ -26,7 +26,7 @@ lazy val cliviz = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .settings(
     libraryDependencies ++= Seq(
-      "ai.dragonfly" %%% "slash" % "0.4.6",
+      "ai.dragonfly" %%% "slash" % "0.4.7",
     )
   ).jvmSettings().jsSettings()
 
